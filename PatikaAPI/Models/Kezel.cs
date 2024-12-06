@@ -10,8 +10,8 @@ public partial class Kezel
 
     public int BetegsegId { get; set; }
 
-    [JsonIgnore]
+
     public virtual Betegseg Betegseg { get; set; } = null!;
-    [JsonIgnore]
+
     public virtual Gyogyszer Gyogyszer { get; set; } = null!;
 }
