@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PatikaAPI.Models;
-using PatikaAPI.Services;
 using System.Security.Cryptography.Xml;
 
 namespace PatikaAPI.Controllers

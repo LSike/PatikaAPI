@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PatikaAPI.Models;
+using PatikaAPI.DTOs;
 
 namespace PatikaAPI.Controllers
 {
@@ -101,6 +102,36 @@ namespace PatikaAPI.Controllers
                     };
                     result.Add(hiba);
                     return BadRequest(result);
+                }
+            }
+        }
+
+        [HttpGet("GyogyszerDTO")]
+        public IActionResult GetGyogyszerDTO()
+        {
+            using (var context = new PatikaContext())
+            {
+                try
+                {
+                    List<GyogyszerNevHatoanyagDTO> result = context.Gyogyszers.Select(gy => new GyogyszerNevHatoanyagDTO()
+                    {
+                        Id=gy.Id,
+                        Nev=gy.Nev,
+                        Hatoanyag = gy.Hatoanyag
+                    }).ToList();
+                    return StatusCode(200,result);
+                }
+                catch (Exception ex)
+                {
+                    List<GyogyszerNevHatoanyagDTO> hibalista = new();
+                    GyogyszerNevHatoanyagDTO hibaDTO = new GyogyszerNevHatoanyagDTO()
+                    {
+                        Id = -1,
+                        Nev = ex.Message
+                    };
+                    hibalista.Add(hibaDTO);
+                    return BadRequest(hibalista);
+                    
                 }
             }
         }
