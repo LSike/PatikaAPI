@@ -10,6 +10,7 @@ namespace PatikaAPI.Controllers
     [ApiController]
     public class BetegsegController : ControllerBase
     {
+        #region Szinkron végpontok
         [HttpGet]
         public IActionResult Get()
         {
@@ -170,5 +171,32 @@ namespace PatikaAPI.Controllers
                 }
             }
         }
+        #endregion
+
+        #region Aszinkron végpontok
+        [HttpGet("GetAllAsync")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            using(var  context = new PatikaContext())
+            {
+                try
+                {
+                    List<Betegseg> result = await context.Betegsegs.ToListAsync();
+                    return Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    List<Betegseg> result = new List<Betegseg>()
+                    {
+                        new Betegseg() { 
+                            Id = -1,
+                            Megnevezes = ex.Message
+                        }
+                    };
+                    return BadRequest(result);
+                }
+            }
+        }
+        #endregion
     }
 }

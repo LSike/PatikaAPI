@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PatikaAPI.Models;
 
@@ -11,7 +12,8 @@ public partial class Kezel
 
     public int Id { get; set; }
 
+    
     public virtual Betegseg Betegseg { get; set; } = null!;
-
+    
     public virtual Gyogyszer Gyogyszer { get; set; } = null!;
 }
