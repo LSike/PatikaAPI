@@ -107,17 +107,6 @@ namespace PatikaAPI.Controllers
             }
         }
 
-        [HttpDelete]
-        public IActionResult DeleteById(int id)
-        {
-            return Ok(BetegsegService.Delete(id));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(Betegseg betegseg)
-        {
-            BetegsegService.Post(betegseg);
-            return Ok();
-        }
+        
     }
 }
