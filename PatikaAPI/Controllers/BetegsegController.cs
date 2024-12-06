@@ -106,6 +106,69 @@ namespace PatikaAPI.Controllers
             }
         }
 
-        
+        [HttpPost("UjBetegseg")]
+        public IActionResult Post(Betegseg ujBetegseg)
+        {
+            using (var context = new PatikaContext())
+            {
+                try
+                {
+                    context.Betegsegs.Add(ujBetegseg);
+                    return StatusCode(200, "Sikeres rögzítés.");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+
+        [HttpDelete("TorolBetegseg")]
+        public IActionResult Delete(int id)
+        {
+            using (var context = new PatikaContext())
+            {
+                try
+                {
+                    Betegseg torlendo = new Betegseg()
+                    {
+                        Id = id
+                    };
+                    context.Betegsegs.Remove(torlendo);
+                    context.SaveChanges();
+                    return Ok("Sikeres törlés.");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+
+        [HttpPut("ModositBetegseg")]
+        public IActionResult Put(Betegseg ujBetegseg)
+        {
+            using (var context = new PatikaContext())
+            {
+                try
+                {
+                    
+                    if (context.Betegsegs.Contains(ujBetegseg))
+                    {
+                        context.Betegsegs.Update(ujBetegseg);
+                        context.SaveChanges();
+                        return StatusCode(200, "Sikeres rögzítés.");
+                    }
+                    else
+                    {
+                        return NotFound("Nincs ilyen azonosítójú gyógyszer.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
     }
 }
